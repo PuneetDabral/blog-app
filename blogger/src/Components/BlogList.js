@@ -3,7 +3,8 @@ import React from 'react'
 
 // const BlogList = (props) => {
     //destructing in props 
-const BlogList = ({blogs,title,handleDelete}) => {
+    // ,handleDelete
+const BlogList = ({blogs,title}) => {
     // const blogs = props.blogs;
     // const title = props.title;
 
@@ -14,7 +15,7 @@ const BlogList = ({blogs,title,handleDelete}) => {
         <div className="blog-preview" key={blog.id}>
         <h2>{blog.title}</h2>
         <p>Wriitten By {blog.author}</p>
-        <button onClick={()=> handleDelete(blog.id)}>Delete</button>
+        {/* <button onClick={()=> handleDelete(blog.id)}>Delete</button> */}
         
         </div>
 
