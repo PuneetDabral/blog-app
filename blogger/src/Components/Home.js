@@ -21,6 +21,8 @@ const Home = () => {
   //   {title: 'Blog 3', body: 'This is blog 3',author : 'Puneet', id: 3},
   // ]
   const [blogs, setBlogs] = useState(null)
+  const [isPending , setIsPending] = useState(true)
+  const [error,Seterror] = useState(null)
 
   // const [name,SetName] =useState('abhi')
 
@@ -32,12 +34,20 @@ const Home = () => {
   useEffect(()=>{
     // console.log('heelo');
     // console.log(blogs);
+    setTimeout(()=>{
     fetch( 'http://localhost:8000/blogs' ).then(
       res => { return res.json()}
       ).then(data=>{
         console.log(data);
         setBlogs(data)
+        setIsPending(false)
+      }).catch(err=>{
+        //any type of netwotk error
+        console.log(err.message)
+        Seterror(err.message)
+        setIsPending(false)
       })
+    },1000);
   },[]);
   // }, [name]);  
   //depamdancy array so that our use effect array is not always load if the state chnages it does not reload 
@@ -47,6 +57,8 @@ const Home = () => {
      
       {/* <p>my name is {name} an i am  {age} year old </p> */}
       {/* <button onClick={handleClick}>Click Me </button> */}
+      {error && <p>{error}</p>}
+      {isPending && <div>Loading...</div>}
       {/* handleDelete={handleDelete} */}
      {blogs && <BlogList blogs={blogs} title='all blogs'/>}
       {/* <button onClick={()=>SetName('Puneet')}></button> */}
