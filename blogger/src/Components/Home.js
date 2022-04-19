@@ -1,5 +1,6 @@
-import {useState,useEffect} from 'react'
+// import {useState,useEffect} from 'react'
 import BlogList from './BlogList';
+import useFetch from './useFetch';
 
 
 const Home = () => {
@@ -20,9 +21,9 @@ const Home = () => {
   //   {title: 'Blog 2', body: 'This is blog 2',author : 'Puneet', id: 2},
   //   {title: 'Blog 3', body: 'This is blog 3',author : 'Puneet', id: 3},
   // ]
-  const [blogs, setBlogs] = useState(null)
-  const [isPending , setIsPending] = useState(true)
-  const [error,Seterror] = useState(null)
+  // const [blogs, setBlogs] = useState(null)
+  // const [isPending , setIsPending] = useState(true)
+  // const [error,Seterror] = useState(null)
 
   // const [name,SetName] =useState('abhi')
 
@@ -31,26 +32,29 @@ const Home = () => {
 
   // }
 
-  useEffect(()=>{
-    // console.log('heelo');
-    // console.log(blogs);
-    setTimeout(()=>{
-    fetch( 'http://localhost:8000/blogs' ).then(
-      res => { return res.json()}
-      ).then(data=>{
-        console.log(data);
-        setBlogs(data)
-        setIsPending(false)
-      }).catch(err=>{
-        //any type of netwotk error
-        console.log(err.message)
-        Seterror(err.message)
-        setIsPending(false)
-      })
-    },1000);
-  },[]);
+  // useEffect(()=>{
+  //   // console.log('heelo');
+  //   // console.log(blogs);
+  //   setTimeout(()=>{
+  //   fetch( 'http://localhost:8000/blogs' ).then(
+  //     res => { return res.json()}
+  //     ).then(data=>{
+  //       console.log(data);
+  //       setBlogs(data)
+  //       setIsPending(false)
+  //     }).catch(err=>{
+  //       //any type of netwotk error
+  //       console.log(err.message)
+  //       Seterror(err.message)
+  //       setIsPending(false)
+  //     })
+  //   },1000);
+  // },[]);
   // }, [name]);  
   //depamdancy array so that our use effect array is not always load if the state chnages it does not reload 
+
+  //now call our custom hook 
+  const {blogs,isPending,error} = useFetch('http://localhost:8000/blogs')
 
   return (
     <div className="home">
