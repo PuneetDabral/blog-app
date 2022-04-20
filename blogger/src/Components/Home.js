@@ -54,7 +54,7 @@ const Home = () => {
   //depamdancy array so that our use effect array is not always load if the state chnages it does not reload 
 
   //now call our custom hook 
-  const {blogs,isPending,error} = useFetch('http://localhost:8000/blogs')
+  const {blogs,isPending,error} = useFetch('http://localhost:8000/blogs') //call that function
 
   return (
     <div className="home">
