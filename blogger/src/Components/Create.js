@@ -1,23 +1,42 @@
 import React from 'react'
 import { useState } from 'react'
 
+import { useNavigate } from 'react-router-dom';
+
 const Create = () => {
   const [title ,Settitle] = useState('');
   const [body ,Setbody] = useState('');
   const [author ,Setauthor] = useState('Puneet');
+ const [isPending ,SetisPending] = useState(false)
 
-  const handleSubmit=(e)=>{
+ const navigate = useNavigate();
 
-   e.preventDefault();
-   const blog ={title,body,author};
-   console.log(blog)
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const result = { title, body, author };
+    SetisPending(true)
+
+    // console.log(result);
+    fetch('http://localhost:8000/blogs', {
+      method: 'POST',
+      headers: {"content-type": "application/json"},
+      body:JSON.stringify(result)})
+      .then((
+        console.log('new blog added'),
+        SetisPending(false),
+        navigate('/')
+      ))
+
+    
   }
+
  
 
   return (
     <div className='create'>
       <h2>create a new blog</h2>
-    <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit}>
       <label>Blog title:</label>
       <input  type="text" required value={title}  onChange={(e)=> Settitle(e.target.value)} />
       <label>Blog body:</label>
@@ -27,7 +46,8 @@ const Create = () => {
         <option value="Puneet">Puneet</option>
         <option value="Hitesh">Hitesh</option>
       </select>
-      <button>Add blog</button>
+      {!isPending && <button>Add blog</button>}
+      {isPending && <button disabled >Addingblog..</button>}
       {/* <p>{title}</p>
       <p>{body}</p>
       <p>{author}</p> */}

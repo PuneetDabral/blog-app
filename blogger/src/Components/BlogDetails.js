@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom'
 import useFetch from './useFetch';
 
 
-function BlogDetails() {
-    const {id} = useParams()
-    const {blog,isPending,error} = useFetch('http://localhost:8000/blogs' +id);
+const BlogDetails = () => {
+  const { id } = useParams();
+  const { blog, error, isPending } = useFetch('http://localhost:8000/blogs/' + id);
+
   return (
     <div className="blog-details">
       { isPending && <div>Loading...</div> }
@@ -18,7 +19,7 @@ function BlogDetails() {
         </article>
       )}
     </div>
-  )
+  );
 }
 
 export default BlogDetails
